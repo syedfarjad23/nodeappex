@@ -13,12 +13,6 @@ jobs:
   build:
 
     runs-on: ubuntu-22.04.3 LTS
-
-    strategy:
-      matrix:
-        node-version: [16.17.1]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -30,12 +24,10 @@ jobs:
       run: npm install
     - name: running tests
       run: npm test
-    - uses: actions/checkout@v3
-      name: Check out code
     - uses: mr-smithers-excellent/docker-build-push@v6
       name: Build & push Docker image
       with:
-        image: muhammadfarjad/nodejsexamp/mainapp
+        image: muhammadfarjad/nodejsexamp
         tags: v1, latest
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
